@@ -1,0 +1,112 @@
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar {
+  margin: 0;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #555;
+  font-weight: bold;
+}
+
+.navbar a:hover, .navbar a.active {
+  color: #007bff;
+}
+
+/* Read More Link */
+.read-more {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Contact Form & Comment Form */
+.contact-page, .comments-section {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fdfdfd;
+}
+
+.contact-form, .comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: inherit;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.contact-form button,
+.comment-form button {
+  align-self: flex-start;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.contact-form button:hover,
+.comment-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Comment List */
+.comment-list {
+  margin-top: 30px;
+}
+
+.comment {
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #fafafa;
+}
+
+.comment strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #444;
+}
