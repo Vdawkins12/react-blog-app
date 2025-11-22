@@ -219,3 +219,18 @@ input:focus, textarea:focus {
   font-size: 0.9rem;
   color: var(--text-light);
 }
+.footer-links {
+  margin-bottom: 15px;
+}
+
+.footer-links a {
+  margin: 0 10px;
+  font-weight: bold;
+  color: var(--text-light);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--accent-lilac); 
+  text-decoration: underline;
+}

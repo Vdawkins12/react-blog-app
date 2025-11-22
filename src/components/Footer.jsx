@@ -1,18 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; // Import the Link component
 
-function Header() {
+function Footer() {
+  const currentYear = new Date().getFullYear();
   return (
-    <header className="header">
-      <h1>My React Blog</h1>
-      <nav className="navbar">
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
-    </header>
+    <footer className="footer">
+      <div className="footer-links">
+        <Link to="/">Home</Link>
+        <Link to="/blog">About</Link> 
+        
+        <Link to="/contact">Contact</Link>
+      </div>
+
+      <p>&copy; {currentYear} My Creative Blog. All rights reserved.</p>
+    </footer>
   );
 }
 
-export default Header;
+export default Footer;
