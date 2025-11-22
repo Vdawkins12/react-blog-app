@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext'; 
 import CommentForm from '../components/CommentForm';
 
 function IndividualPostPage() {
   const { postId } = useParams(); 
+  const { user } = useAuth(); // Get the user status to check if logged in
 
   const [post, setPost] = useState(null);
   const [author, setAuthor] = useState(null);
@@ -17,11 +19,13 @@ function IndividualPostPage() {
       setIsLoading(true);
       setError(null);
       try {
+        // Getting the post
         const postRes = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`);
         if (!postRes.ok) throw new Error('Post not found!');
         const postData = await postRes.json();
         setPost(postData);
 
+        // The author and the comments
         const [userRes, commentsRes] = await Promise.all([
           fetch(`https://jsonplaceholder.typicode.com/users/${postData.userId}`),
           fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
@@ -46,9 +50,9 @@ function IndividualPostPage() {
     fetchPostData();
   }, [postId]); 
 
-  const handleAddComment = async ({ name, text }) => {
-    if (!name.trim() || !text.trim()) {
-      alert('Please fill out both name and comment fields.');
+  const handleAddComment = async ({ text }) => {
+    if (!text.trim()) {
+      alert('Please write a comment.');
       return;
     }
 
@@ -57,7 +61,7 @@ function IndividualPostPage() {
       const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`, {
         method: 'POST',
         body: JSON.stringify({
-          name: name,
+          name: user.name,
           body: text,
           email: 'testuser@example.com',
           postId: Number(postId),
@@ -71,7 +75,7 @@ function IndividualPostPage() {
 
       const newComment = await response.json();
       
-      const commentToDisplay = { ...newComment, name: name, body: text };
+      const commentToDisplay = { ...newComment, name: user.name, body: text };
       setComments([commentToDisplay, ...comments]);
 
     } catch (err) {
@@ -107,9 +111,16 @@ function IndividualPostPage() {
       </article>
 
       <section className="comments-section">
-        <h3>Leave a Comment</h3>
-        <CommentForm onSubmit={handleAddComment} isSubmitting={isPostingComment} />
-        
+        {user ? (
+          <>
+            <h3>Leave a Comment</h3>
+            <CommentForm onSubmit={handleAddComment} isSubmitting={isPostingComment} />
+          </>
+        ) : (
+          <div style={{ padding: '15px', background: '#f8f9fa', marginBottom: '20px', borderRadius: '5px', border: '1px solid #eee' }}>
+             <p>You must be <a href="/login" style={{color: '#007bff', fontWeight: 'bold'}}>logged in</a> to leave a comment.</p>
+          </div>
+        )}
         <h3>Comments</h3>
         <div className="comment-list">
           {comments.length === 0 ? (
